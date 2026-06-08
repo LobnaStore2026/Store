@@ -285,26 +285,24 @@
         // ⚙️ AUTOMATIC GENERATOR LOGIC
         // ==========================================
 
-       function renderGridProducts(productList, containerId) {
+      function renderGridProducts(productList, containerId) {
     const container = document.getElementById(containerId);
     if (!container) return;
 
     productList.forEach((product, index) => {
         const uniqueId = containerId + '-' + index;
-        
-        // تسجيل الـ slider state
         sliderState[uniqueId] = { images: product.images, currentIndex: 0 };
 
         const html = `
             <div class="group relative">
                 <div class="cinematic-img-container h-[55vh] mb-4 bg-gray-100">
                     <img id="img-${uniqueId}" src="${product.images[0]}" class="cinematic-img w-full h-full object-cover" alt="${product.name}" onerror="this.src='https://via.placeholder.com/400x600?text=Image+Not+Found'">
-                    
+
                     ${product.images.length > 1 ? `
-                    <button onclick="slideImage('${uniqueId}', -1)" class="absolute left-2 top-1/2 -translate-y-1/2 z-20 bg-white/70 hover:bg-roseGold hover:text-white text-luxuryDark w-8 h-8 rounded-full flex items-center justify-center transition duration-300">
+                    <button onclick="slideImage('${uniqueId}', -1)" class="absolute left-2 top-1/2 -translate-y-1/2 z-20 bg-white/70 hover:bg-roseGold hover:text-white text-luxuryDark w-9 h-9 rounded-full flex items-center justify-center transition duration-300 shadow-md">
                         <i class="fa-solid fa-chevron-left text-xs"></i>
                     </button>
-                    <button onclick="slideImage('${uniqueId}', 1)" class="absolute right-2 top-1/2 -translate-y-1/2 z-20 bg-white/70 hover:bg-roseGold hover:text-white text-luxuryDark w-8 h-8 rounded-full flex items-center justify-center transition duration-300">
+                    <button onclick="slideImage('${uniqueId}', 1)" class="absolute right-2 top-1/2 -translate-y-1/2 z-20 bg-white/70 hover:bg-roseGold hover:text-white text-luxuryDark w-9 h-9 rounded-full flex items-center justify-center transition duration-300 shadow-md">
                         <i class="fa-solid fa-chevron-right text-xs"></i>
                     </button>` : ''}
 
@@ -334,7 +332,6 @@
         container.innerHTML += html;
     });
 }
-
         renderGridProducts(suitsData, 'suits-container');
         renderGridProducts(dressesData, 'dresses-container');
 
