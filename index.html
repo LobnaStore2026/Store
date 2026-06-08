@@ -250,32 +250,11 @@
         // ==========================================
 
       const suitsData = [
-    // picture1
-    { name: "Luxury Suit", price: 600, image: "picture1-1.jpeg" },
-    { name: "Luxury Suit", price: 600, image: "picture1-2.jpeg" },
-    { name: "Luxury Suit", price: 600, image: "picture1-3.jpeg" },
-
-    // picture2
-    { name: "Luxury Suit", price: 350, image: "picture2-1.jpeg" },
-    { name: "Luxury Suit", price: 350, image: "picture2-2.jpeg" },
-    { name: "Luxury Suit", price: 350, image: "picture2-3.jpeg" },
-
-    // picture3
-    { name: "Luxury Suit", price: 580, image: "picture3-1.jpeg" },
-    { name: "Luxury Suit", price: 580, image: "picture3-2.jpeg" },
-
-    // picture4
-    { name: "Luxury Suit", price: 500, image: "picture4-1.jpeg" },
-    { name: "Luxury Suit", price: 500, image: "picture4-2.jpeg" },
-    { name: "Luxury Suit", price: 500, image: "picture4-3.jpeg" },
-
-    // picture7
-    { name: "Luxury Suit", price: 480, image: "picture7-1.jpeg" },
-    { name: "Luxury Suit", price: 480, image: "picture7-2.jpeg" },
-    { name: "Luxury Suit", price: 480, image: "picture7-3.jpeg" },
-    { name: "Luxury Suit", price: 480, image: "picture7-4.jpeg" },
-    { name: "Luxury Suit", price: 480, image: "picture7-5.jpeg" },
-    { name: "Luxury Suit", price: 480, image: "picture7-6.jpeg" },
+  { name: "Luxury Suit", price: 600, images: ["picture1-1.jpeg","picture1-2.jpeg","picture1-3.jpeg"] },
+  { name: "Luxury Suit", price: 350, images: ["picture2-1.jpeg","picture2-2.jpeg","picture2-3.jpeg"] },
+  { name: "Luxury Suit", price: 580, images: ["picture3-1.jpeg","picture3-2.jpeg"] },
+  { name: "Luxury Suit", price: 500, images: ["picture4-1.jpeg","picture4-2.jpeg","picture4-3.jpeg"] },
+  { name: "Luxury Suit", price: 480, images: ["picture7-1.jpeg","picture7-2.jpeg","picture7-3.jpeg","picture7-4.jpeg","picture7-5.jpeg","picture7-6.jpeg"] },
 
     // الصور القديمة
     { name: "Luxury Suit", price: 1100, image: "suit-1.jpg" },
@@ -298,58 +277,63 @@
             { name: "Elegant Dress Collection", price: 750, image: "dress-2.jpg" },
             { name: "Elegant Dress Collection", price: 750, image: "dress-3.jpg" },
             { name: "Elegant Dress Collection", price: 750, image: "dress-4.jpg" },
-            { name: "Elegant Dress Collection", price: 850, image: "picture5-1.jpeg" },
-             { name: "Elegant Dress Collection", price: 850, image: "picture5-2.jpeg" },
-            { name: "Elegant Dress Collection", price: 850, image: "picture5-3.jpeg" },
-           { name: "Elegant Dress Collection", price: 450, image: "picture6-1.jpeg" },
-             { name: "Elegant Dress Collection", price: 450, image: "picture6-2.jpeg" },
-           { name: "Elegant Dress Collection", price: 450, image: "picture6-3.jpeg" },
-            { name: "Elegant Dress Collection", price: 450, image: "picture6-4.jpeg" },
+            { name: "Elegant Dress Collection", price: 850, images: ["picture5-1.jpeg","picture5-2.jpeg","picture5-3.jpeg"] },
+            { name: "Elegant Dress Collection", price: 450, images: ["picture6-1.jpeg","picture6-2.jpeg","picture6-3.jpeg","picture6-4.jpeg"] },
         ];
 
         // ==========================================
         // ⚙️ AUTOMATIC GENERATOR LOGIC
         // ==========================================
 
-        function renderGridProducts(productList, containerId) {
-            const container = document.getElementById(containerId);
-            if (!container) return;
-            let delay = 100;
+       function renderGridProducts(productList, containerId) {
+    const container = document.getElementById(containerId);
+    if (!container) return;
 
-            productList.forEach((product, index) => {
-                const uniqueId = containerId + '-' + index;
-                const html = `
-                    <div class="group relative">
-                        <div class="cinematic-img-container h-[55vh] mb-4 bg-gray-100">
-                            <img src="${product.image}" class="cinematic-img w-full h-full object-cover" alt="${product.name}" onerror="this.src='https://via.placeholder.com/400x600?text=Image+Not+Found'">
-                            
-                            <div class="absolute bottom-16 left-1/2 -translate-x-1/2 w-3/4 flex gap-2 opacity-0 group-hover:opacity-100 transition duration-300 z-20">
-                                <select id="size-${uniqueId}" class="w-1/2 bg-white/90 backdrop-blur text-xs p-2 outline-none text-luxuryDark">
-                                    <option value="S">Size: S</option>
-                                    <option value="M" selected>Size: M</option>
-                                    <option value="L">Size: L</option>
-                                    <option value="XL">Size: XL</option>
-                                </select>
-                                <select id="color-${uniqueId}" class="w-1/2 bg-white/90 backdrop-blur text-xs p-2 outline-none text-luxuryDark">
-                                    <option value="أسود">أسود</option>
-                                    <option value="أبيض">أبيض</option>
-                                    <option value="أزرق">أزرق</option>
-                                    <option value="أحمر">أحمر</option>
-                                </select>
-                            </div>
+    productList.forEach((product, index) => {
+        const uniqueId = containerId + '-' + index;
+        
+        // تسجيل الـ slider state
+        sliderState[uniqueId] = { images: product.images, currentIndex: 0 };
 
-                            <button onclick="addToCart('${product.name}', ${product.price}, '${product.image}', '${uniqueId}')" class="absolute bottom-4 left-1/2 -translate-x-1/2 w-3/4 py-3 bg-white/90 backdrop-blur text-xs uppercase tracking-widest hover:bg-roseGold hover:text-white transition duration-300 opacity-0 group-hover:opacity-100 translate-y-4 group-hover:translate-y-0 z-20">
-                                Add to Bag
-                            </button>
-                        </div>
-                        <h4 class="font-playfair text-lg">${product.name}</h4>
-                        <p class="text-roseGold text-sm mt-1">EGP ${product.price.toLocaleString()}</p>
+        const html = `
+            <div class="group relative">
+                <div class="cinematic-img-container h-[55vh] mb-4 bg-gray-100">
+                    <img id="img-${uniqueId}" src="${product.images[0]}" class="cinematic-img w-full h-full object-cover" alt="${product.name}" onerror="this.src='https://via.placeholder.com/400x600?text=Image+Not+Found'">
+                    
+                    ${product.images.length > 1 ? `
+                    <button onclick="slideImage('${uniqueId}', -1)" class="absolute left-2 top-1/2 -translate-y-1/2 z-20 bg-white/70 hover:bg-roseGold hover:text-white text-luxuryDark w-8 h-8 rounded-full flex items-center justify-center transition duration-300">
+                        <i class="fa-solid fa-chevron-left text-xs"></i>
+                    </button>
+                    <button onclick="slideImage('${uniqueId}', 1)" class="absolute right-2 top-1/2 -translate-y-1/2 z-20 bg-white/70 hover:bg-roseGold hover:text-white text-luxuryDark w-8 h-8 rounded-full flex items-center justify-center transition duration-300">
+                        <i class="fa-solid fa-chevron-right text-xs"></i>
+                    </button>` : ''}
+
+                    <div class="absolute bottom-16 left-1/2 -translate-x-1/2 w-3/4 flex gap-2 opacity-0 group-hover:opacity-100 transition duration-300 z-20">
+                        <select id="size-${uniqueId}" class="w-1/2 bg-white/90 backdrop-blur text-xs p-2 outline-none text-luxuryDark">
+                            <option value="S">Size: S</option>
+                            <option value="M" selected>Size: M</option>
+                            <option value="L">Size: L</option>
+                            <option value="XL">Size: XL</option>
+                        </select>
+                        <select id="color-${uniqueId}" class="w-1/2 bg-white/90 backdrop-blur text-xs p-2 outline-none text-luxuryDark">
+                            <option value="أسود">أسود</option>
+                            <option value="أبيض">أبيض</option>
+                            <option value="أزرق">أزرق</option>
+                            <option value="أحمر">أحمر</option>
+                        </select>
                     </div>
-                `;
-                container.innerHTML += html;
-                delay += 50;
-            });
-        }
+
+                    <button onclick="addToCart('${product.name}', ${product.price}, '${uniqueId}')" class="absolute bottom-4 left-1/2 -translate-x-1/2 w-3/4 py-3 bg-white/90 backdrop-blur text-xs uppercase tracking-widest hover:bg-roseGold hover:text-white transition duration-300 opacity-0 group-hover:opacity-100 translate-y-4 group-hover:translate-y-0 z-20">
+                        Add to Bag
+                    </button>
+                </div>
+                <h4 class="font-playfair text-lg">${product.name}</h4>
+                <p class="text-roseGold text-sm mt-1">EGP ${product.price.toLocaleString()}</p>
+            </div>
+        `;
+        container.innerHTML += html;
+    });
+}
 
         renderGridProducts(suitsData, 'suits-container');
         renderGridProducts(dressesData, 'dresses-container');
@@ -357,7 +341,7 @@
         // ==========================================
         // 🛍️ SHOPPING CART & EMAIL LOGIC
         // ==========================================
-
+        const sliderState = {};
         let cart = [];
         const TARGET_EMAIL = "Lobnaabdelrhem3@gmail.com"; 
 
@@ -366,6 +350,11 @@
         const cartItemsContainer = document.getElementById('cart-items');
         const cartCount = document.getElementById('cart-count');
         const cartTotal = document.getElementById('cart-total');
+        function slideImage(uniqueId, direction) {
+    const card = sliderState[uniqueId];
+    card.currentIndex = (card.currentIndex + direction + card.images.length) % card.images.length;
+    document.getElementById(`img-${uniqueId}`).src = card.images[card.currentIndex];
+}
 
         function toggleCart() {
             cartSidebar.classList.toggle('open');
@@ -373,22 +362,23 @@
             renderCart();
         }
 
-        function addToCart(name, price, image, uniqueId) {
-            const size = document.getElementById(`size-${uniqueId}`).value;
-            const color = document.getElementById(`color-${uniqueId}`).value;
+       function addToCart(name, price, uniqueId) {
+    const image = sliderState[uniqueId].images[sliderState[uniqueId].currentIndex];
+    const size = document.getElementById(`size-${uniqueId}`).value;
+    const color = document.getElementById(`color-${uniqueId}`).value;
 
-            const existingItem = cart.find(item => item.name === name && item.size === size && item.color === color);
-            
-            if (existingItem) {
-                existingItem.quantity += 1;
-            } else {
-                cart.push({ name, price, image, quantity: 1, size, color });
-            }
-            
-            cartCount.classList.add('scale-125');
-            setTimeout(() => cartCount.classList.remove('scale-125'), 200);
-            toggleCart(); 
-        }
+    const existingItem = cart.find(item => item.name === name && item.size === size && item.color === color);
+    
+    if (existingItem) {
+        existingItem.quantity += 1;
+    } else {
+        cart.push({ name, price, image, quantity: 1, size, color });
+    }
+    
+    cartCount.classList.add('scale-125');
+    setTimeout(() => cartCount.classList.remove('scale-125'), 200);
+    toggleCart();
+}
 
         function removeFromCart(index) {
             cart.splice(index, 1);
