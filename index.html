@@ -232,6 +232,7 @@
         // ==========================================
         // 🔄 VIEW NAVIGATION LOGIC
         // ==========================================
+        const sliderState = {};
         function showView(viewName) {
             // Hide all views
             document.getElementById('home-view').classList.add('hidden');
@@ -297,9 +298,9 @@ sliderState[uniqueId] = { images: images, currentIndex: 0 };
         const html = `
             <div class="group relative">
                 <div class="cinematic-img-container h-[55vh] mb-4 bg-gray-100">
-                    <<img id="img-${uniqueId}" src="${images[0]}" class="cinematic-img w-full h-full object-cover" alt="${product.name}" onerror="this.src='https://via.placeholder.com/400x600?text=Image+Not+Found'">
+                    <img id="img-${uniqueId}" src="${images[0]}" class="cinematic-img w-full h-full object-cover" alt="${product.name}" onerror="this.src='https://via.placeholder.com/400x600?text=Image+Not+Found'">
 
-                    ${${images.length > 1 ? ` ? `
+                    ${images.length > 1 ? `
                     <button onclick="slideImage('${uniqueId}', -1)" class="absolute left-2 top-1/2 -translate-y-1/2 z-20 bg-white/70 hover:bg-roseGold hover:text-white text-luxuryDark w-9 h-9 rounded-full flex items-center justify-center transition duration-300 shadow-md">
                         <i class="fa-solid fa-chevron-left text-xs"></i>
                     </button>
@@ -339,7 +340,6 @@ sliderState[uniqueId] = { images: images, currentIndex: 0 };
         // ==========================================
         // 🛍️ SHOPPING CART & EMAIL LOGIC
         // ==========================================
-        const sliderState = {};
         let cart = [];
         const TARGET_EMAIL = "Lobnaabdelrhem3@gmail.com"; 
 
